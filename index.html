@@ -1,342 +1,1066 @@
-﻿<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arijit Mahapatro — Senior DevOps Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #080b10;
+      --bg2:       #0d1117;
+      --bg3:       #111820;
+      --border:    #1e2d3d;
+      --cyan:      #00d9ff;
+      --cyan-dim:  #00d9ff33;
+      --orange:    #ff6b35;
+      --green:     #3ddc84;
+      --text:      #cdd9e5;
+      --text-dim:  #768390;
+      --text-dark: #444c56;
+      --white:     #f0f6fc;
+    }
 
-<html class="no-js" lang="en-in">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <head>
+    html { scroll-behavior: smooth; }
 
-    	<!-- metas -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-       	<meta name="description" content="Hey , I am Arijit Mahapatro">
-		<meta name="keywords" content="portfolio, personal, corporate, business, parallax, creative, agency">
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-		<!-- title -->
-		<title>Arijit Mahapatro</title>
+    /* Custom cursor */
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--cyan);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: screen;
+      transition: transform 0.1s ease;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--cyan);
+      border-radius: 50%;
+      position: fixed;
+      top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.4;
+      transition: all 0.15s ease;
+    }
 
-		<!-- favicon -->
-        <link href="img\favicon.ico" rel="icon" type="image/png">
+    /* Grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        <!-- bootstrap css -->
-		<link rel="stylesheet" href="css\bootstrap.min.css">
+    /* Noise texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
 
-		<!-- google fonts -->
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800,900" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800" rel="stylesheet">
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(8, 11, 16, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      padding: 8px 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      cursor: none;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .nav-cta:hover { background: var(--cyan); color: var(--bg); }
 
-		<!-- owl carousel CSS -->
-		<link rel="stylesheet" href="css\owl.carousel.min.css">
-		<link rel="stylesheet" href="css\owl.theme.default.min.css">
+    /* SECTIONS */
+    section { position: relative; z-index: 1; }
 
-		<!-- magnific-popup CSS -->
-		<link rel="stylesheet" href="css\magnific-popup.css">
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 48px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .hero-inner { max-width: 800px; }
 
-		<!-- animate.min CSS -->
-		<link rel="stylesheet" href="css\animate.min.css">
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 24px; height: 1px;
+      background: var(--cyan);
+    }
 
-		<!-- Font Icon Core CSS -->
-		<link rel="stylesheet" href="css\font-awesome.min.css">
-		<link rel="stylesheet" href="css\et-line.css">
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 800;
+      line-height: 1.0;
+      color: var(--white);
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+    h1 .accent { color: var(--cyan); }
+    h1 .line2 { display: block; color: var(--text-dim); font-size: 0.6em; font-weight: 400; letter-spacing: -1px; margin-top: 8px; }
 
-		<!-- Core Style Css -->
-        <link rel="stylesheet" href="css\style.css">
+    .hero-desc {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 560px;
+      margin: 28px 0 44px;
+      line-height: 1.9;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.35s forwards;
+    }
 
-        <!--[if lt IE 9]-->
-		<script src="js\html5shiv.min.js"></script>
-		<!--[endif]-->
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.45s forwards;
+    }
+    .stat-item { }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-num span { color: var(--cyan); }
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 4px;
+    }
 
-    </head>
-    
-    <body>
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.55s forwards;
+    }
+    .btn-primary {
+      background: var(--cyan);
+      color: var(--bg);
+      padding: 14px 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: none;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+    .btn-secondary {
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 14px 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-decoration: none;
+      cursor: none;
+      transition: all 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--cyan); color: var(--cyan); }
 
-    	<div style="position: fixed; z-index: -99; width: 100%; height: 100%">
-  <iframe frameborder="0" height="100%" width="100%"
-    src="https://www.youtube.com/watch?v=XUgmMMK4lNc?autoplay=1&controls=0&showinfo=0&autohide=1">
-  </iframe>
-</div>
+    /* Terminal widget */
+    .hero-terminal {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 380px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      font-size: 12px;
+      opacity: 0;
+      animation: fadeUp 0.7s ease 0.7s forwards;
+    }
+    .term-bar {
+      background: var(--bg3);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .term-title { color: var(--text-dark); font-size: 11px; margin-left: auto; }
+    .term-body { padding: 20px; }
+    .term-line { margin-bottom: 6px; }
+    .term-prompt { color: var(--green); }
+    .term-cmd { color: var(--white); }
+    .term-out { color: var(--text-dim); padding-left: 16px; }
+    .term-out.cyan { color: var(--cyan); }
+    .term-out.orange { color: var(--orange); }
+    .blink {
+      display: inline-block;
+      width: 8px; height: 14px;
+      background: var(--cyan);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 2px;
+    }
 
+    /* SERVICES */
+    #services {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--cyan);
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -1.5px;
+      margin-bottom: 64px;
+      line-height: 1.1;
+    }
 
-    	<!-- ====== Preloader ======  -->
-	    <div class="loading">
-			<div class="load-circle">
-			</div>
-		</div>
-		<!-- ======End Preloader ======  -->
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2px;
+    }
+    .service-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 40px 36px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--cyan);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
 
-		<!-- ====== Navgition ======  -->
-		<nav class="navbar navbar-default">
-		  <div class="container">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-icon-collapse" aria-expanded="false">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
+    .service-icon {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .service-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .service-desc {
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      border: 1px solid var(--cyan-dim);
+      padding: 3px 10px;
+      background: var(--cyan-dim);
+    }
+    .service-price {
+      position: absolute;
+      top: 40px; right: 36px;
+      font-size: 11px;
+      color: var(--text-dark);
+      letter-spacing: 0.05em;
+    }
 
-		       <!-- logo -->
-		      <a class="logo" href="index.html">Arijit</a>
+    /* IMPACT */
+    #impact {
+      padding: 100px 48px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .impact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .impact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 64px;
+    }
+    .impact-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 44px;
+    }
+    .impact-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .impact-client {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .impact-year {
+      font-size: 11px;
+      color: var(--text-dark);
+    }
+    .impact-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .impact-desc {
+      color: var(--text-dim);
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .impact-metrics {
+      display: flex;
+      gap: 32px;
+    }
+    .metric { }
+    .metric-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--cyan);
+    }
+    .metric-label {
+      font-size: 11px;
+      color: var(--text-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
 
-		    </div>
+    /* STACK */
+    #stack {
+      padding: 100px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .stack-groups {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-top: 64px;
+    }
+    .stack-group-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .stack-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .stack-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-dim);
+      transition: color 0.2s;
+      padding: 6px 0;
+    }
+    .stack-item:hover { color: var(--white); }
+    .stack-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--cyan);
+      flex-shrink: 0;
+    }
 
-		    <!-- Collect the nav links, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="nav-icon-collapse">
-		      
-			  <!-- links -->
-		      <ul class="nav navbar-nav navbar-right">
-		        <li><a href="index.html" data-scroll-nav="0" class="active">Home</a></li>
-		        <li><a href="comingsoon/comingsoon.html">Blogs</a></li>
-		        <li><a href="#" data-scroll-nav="1">About</a></li>
-		        <li><a href="#" data-scroll-nav="2">Contact</a></li>
-		      </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container -->
-		</nav>
-		<!-- ====== End Navgition ======  -->
+    /* CONTACT */
+    #contact {
+      padding: 100px 48px;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-left .section-title { margin-bottom: 24px; }
+    .contact-tagline {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.9;
+      margin-bottom: 48px;
+    }
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 13px;
+      padding: 16px 20px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--cyan); color: var(--cyan); transform: translateX(4px); }
+    .contact-link-icon { font-size: 18px; }
+    .contact-link-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dark); }
+    .contact-link-val { color: inherit; }
 
-		<!-- ====== Header ======  -->
-		<section id="home" class="header" data-scroll-index="0" style="background-image: url(img/bg.jpg);" data-stellar-background-ratio="0.8">
- 		<div style="position: fixed; z-index: -99; width: 100%; height: 100%">
-  <iframe frameborder="0" height="100%" width="100%"
-    src="https://www.youtube.com/watch?v=XUgmMMK4lNc?autoplay=1&controls=0&showinfo=0&autohide=1">
-  </iframe>
-</div>
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+    .form-input, .form-textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 14px 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--cyan); }
+    .form-textarea { min-height: 120px; }
+    .form-submit {
+      background: var(--cyan);
+      color: var(--bg);
+      border: none;
+      padding: 16px 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: none;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 8px;
+      align-self: flex-start;
+    }
+    .form-submit:hover { background: var(--white); transform: translateY(-2px); }
 
-			<!-- particles -->
-			<div id="particles-js"></div>
+    /* FOOTER */
+    footer {
+      padding: 28px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-copy { font-size: 12px; color: var(--text-dark); }
+    .footer-copy span { color: var(--cyan); }
+    .footer-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--green);
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease infinite;
+    }
 
-			<div class="v-middle">
-				<div class="container">
-					<div class="row">
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(1.3); }
+    }
 
-						<!-- caption -->
-						<div class="caption">
-							<h5>HEY,THERE</h5>
-							<h1 class="cd-headline clip">
-					            <span class="blc">I Am </span>
-					            <span class="cd-words-wrapper">
-					              <b class="is-visible">Arijit Mahapatro</b>
-					              <b>a CSE Student</b>
-					            </span>
-			          		</h1>
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-			          		<!-- social icons -->
-			          		<div class="social-icon">
-			          			<a href="https://www.facebook.com/arijit.mahapatro">
-			          				<span><i class="fa fa-facebook" aria-hidden="true"></i></span>
-			          			</a>
-			          			<a href="https://twitter.com/">
-			          				<span><i class="fa fa-twitter" aria-hidden="true"></i></span>
-			          			</a>
-			          			<a href="https://www.linkedin.com/in/arijit-mahapatro-5a095a17a/">
-			          				<span><i class="fa fa-linkedin" aria-hidden="true"></i></span>
-			          			</a>
-			          			<a href="https://instagram.com/thearijit016">
-			          				<span><i class="fa fa-telegram" aria-hidden="true"></i></i></span>
-			          			</a>
-			          			<a href="https://github.com/ArijitMahapatro">
-			          				<span><i class="fa fa-github" aria-hidden="true"></i></span>
-			          			</a>
-			          		</div>
-						</div>
-						<!-- end caption -->
-					</div>
-				</div><!-- /row -->
-			</div><!-- /container -->
-		</section>
-		<!-- ====== End Header ======  -->
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 24px 60px; flex-direction: column; }
+      .hero-terminal { display: none; }
+      #services, #stack, #impact, #contact, footer { padding-left: 24px; padding-right: 24px; }
+      .impact-grid, .contact-inner { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
 
-		<!-- ====== Hero ======  -->
-		<section class="hero section-padding pb-70" data-scroll-index="1">
-			<div class="container">
-				<div class="row">
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-					<!-- hero image -->
-					<div class="col-md-5">
-						<div class="hero-img mb-30">
-							<img src="img\hero.jpg" alt="">
-						</div>
-					</div>
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">AM<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#impact">Work</a></li>
+      <li><a href="#stack">Stack</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Hire Me →</a>
+  </nav>
 
-					<!-- content -->
-					<div class="col-md-7">
-						<div class="content mb-30">
-							<h3>About Me.</h3>
-							<span class="sub-title">Engineer , CSE </span>
-							<p>I am <b>Arijit Mahapatro</b> 22yr old engineering student from Odisha.
-							 I am doing my recent studies at NIST,Berhampur,Odisha. I have good knowledge on front-end webdevelopment.</p>
+  <!-- HERO -->
+  <section id="hero">
+    <div style="max-width:1200px;margin:0 auto;width:100%;position:relative;">
+      <div class="hero-inner">
+        <div class="hero-tag">Available for freelance engagements</div>
+        <h1>
+          Arijit<br><span class="accent">Mahapatro</span>
+          <span class="line2">Senior DevOps Engineer</span>
+        </h1>
+        <p class="hero-desc">
+          I build cloud infrastructure that doesn't wake you up at 3 AM.
+          CI/CD pipelines, Kubernetes platforms, multi-cloud automation — 
+          production-grade, battle-tested, built to last.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num">4<span>+</span></div>
+            <div class="stat-label">Years Experience</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">150<span>+</span></div>
+            <div class="stat-label">Servers Managed</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3</div>
+            <div class="stat-label">Cloud Platforms</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">30<span>%</span></div>
+            <div class="stat-label">Deploy Time Cut</div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Start a Project</a>
+          <a href="#impact" class="btn-secondary">See My Work</a>
+        </div>
+      </div>
 
-							<!-- skills progress -->
-							<div class="skills">
-								<div class="item">
-									<div class="skills-progress">
-										<h6>Web Design</h6>
-										<span data-value="80%"></span>
-									</div>
-								</div>
-								<div class="item">
-									<div class="skills-progress">
-										<h6>Pytho</h6>
-										<span data-value="50%"></span>
-									</div>
-								</div>
-								<div class="item">
-									<div class="skills-progress">
-										<h6>Shell script</h6>
-										<span data-value="40%"></span>
-									</div>
-								</div>
-							</div>
-							<div class="clearfix"></div>
+      <!-- Terminal -->
+      <div class="hero-terminal">
+        <div class="term-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <span class="term-title">arijit@devops ~ </span>
+        </div>
+        <div class="term-body">
+          <div class="term-line"><span class="term-prompt">❯ </span><span class="term-cmd">cat whoami.yaml</span></div>
+          <div class="term-line term-out cyan">name: Arijit Mahapatro</div>
+          <div class="term-line term-out">role: Senior DevOps Engineer</div>
+          <div class="term-line term-out">location: Bengaluru, India</div>
+          <div class="term-line term-out cyan">experience: 4+ years</div>
+          <div class="term-line term-out">clouds: [Azure, AWS, GCP]</div>
+          <div class="term-line term-out">available: true ✓</div>
+          <br/>
+          <div class="term-line"><span class="term-prompt">❯ </span><span class="term-cmd">kubectl get mindset</span></div>
+          <div class="term-line term-out orange">NAME             STATUS</div>
+          <div class="term-line term-out">reliability      Running ✓</div>
+          <div class="term-line term-out">automation       Running ✓</div>
+          <div class="term-line term-out">scalability      Running ✓</div>
+          <div class="term-line term-out cyan">grinding         Running ✓</div>
+          <br/>
+          <div class="term-line"><span class="term-prompt">❯ </span><span class="blink"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-							<a href="error.html">
-								<span class="buton buton-bg">Download C.V</span>
-							</a>
-							<a href="#0" data-scroll-nav="6">
-								<span class="buton" data-scroll-nav="2">Contact Me</span>
-							</a>
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-label">What I Do</div>
+    <div class="section-title">Services I<br>Deliver</div>
+    <div class="services-grid reveal">
 
-						</div>
-					</div>
-				</div><!-- /row -->
-			</div><!-- /container -->
-		</section>
-		<!-- ====== End Hero ====== -->
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <div class="service-price">From ₹25K / project</div>
+        <div class="service-title">CI/CD Pipeline Design</div>
+        <div class="service-desc">
+          End-to-end pipeline architecture — from code commit to production deployment. 
+          GitHub Actions, Jenkins, Azure DevOps. Zero-downtime deployments, rollback strategies, environment promotion.
+        </div>
+        <div class="service-tags">
+          <span class="tag">GitHub Actions</span>
+          <span class="tag">Jenkins</span>
+          <span class="tag">Azure DevOps</span>
+          <span class="tag">ArgoCD</span>
+        </div>
+      </div>
 
-		<!--====== Contact ======-->
-		<section class="contact section-padding" data-scroll-index="2">
-			<div class="container">
-				<div class="row">
-					
-					<!-- section heading -->
-					<div class="section-head">
-						<h3>Contact Us.</h3>
-					</div>
+      <div class="service-card">
+        <div class="service-icon">☁️</div>
+        <div class="service-price">From ₹40K / project</div>
+        <div class="service-title">Cloud Infrastructure</div>
+        <div class="service-desc">
+          Multi-cloud architecture on Azure, AWS, and GCP. Infrastructure as Code with Terraform. 
+          VPCs, networking, security, IAM, cost optimization — built production-ready from day one.
+        </div>
+        <div class="service-tags">
+          <span class="tag">Azure</span>
+          <span class="tag">AWS</span>
+          <span class="tag">GCP</span>
+          <span class="tag">Terraform</span>
+        </div>
+      </div>
 
-					<div class="col-md-offset-1 col-md-10">
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <div class="service-price">From ₹35K / project</div>
+        <div class="service-title">Kubernetes Platform</div>
+        <div class="service-desc">
+          Containerize your applications and run them on production-grade Kubernetes (AKS, GKE, EKS). 
+          Helm charts, autoscaling, resource optimization, GitOps workflows.
+        </div>
+        <div class="service-tags">
+          <span class="tag">Kubernetes</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Helm</span>
+          <span class="tag">AKS/GKE/EKS</span>
+        </div>
+      </div>
 
-						<!-- contact info -->
-						<div class="info text-center mb-50">
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-price">From ₹20K / project</div>
+        <div class="service-title">Monitoring & Observability</div>
+        <div class="service-desc">
+          Full observability stack — metrics, logs, traces, and alerts. 
+          Prometheus, Grafana dashboards, ELK Stack, Azure Monitor. Catch issues before your users do.
+        </div>
+        <div class="service-tags">
+          <span class="tag">Prometheus</span>
+          <span class="tag">Grafana</span>
+          <span class="tag">ELK Stack</span>
+          <span class="tag">Azure Monitor</span>
+        </div>
+      </div>
 
-							<div class="col-md-4">
-								<div class="item">
-									<span class="icon"><i class="fa fa-location-arrow" aria-hidden="true"></i></span>
-									<h6>Address</h6>
-									<p>Odisha - India</p>
-								</div>
-							</div>
+      <div class="service-card">
+        <div class="service-icon">🔐</div>
+        <div class="service-price">From ₹30K / project</div>
+        <div class="service-title">DevSecOps & Security</div>
+        <div class="service-desc">
+          Security baked into every layer — Private Endpoints, Key Vault, IAM hardening, 
+          secrets management, vulnerability scanning in pipelines, compliance automation.
+        </div>
+        <div class="service-tags">
+          <span class="tag">Azure Security</span>
+          <span class="tag">Key Vault</span>
+          <span class="tag">IAM</span>
+          <span class="tag">DevSecOps</span>
+        </div>
+      </div>
 
-							<div class="col-md-4">
-								<div class="item">
-									<span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-									<h6>Email</h6>
-									<p>arijitmahapatro008@gmail.com</p>
-								</div>
-							</div>
+      <div class="service-card">
+        <div class="service-icon">🚑</div>
+        <div class="service-price">₹5K / hour</div>
+        <div class="service-title">Production Support & SRE</div>
+        <div class="service-desc">
+          Emergency incident response, L1–L3 support, post-mortem analysis, runbook creation. 
+          SLA-driven, fast response, root cause guaranteed. I've managed 150+ Linux servers — I've seen it all.
+        </div>
+        <div class="service-tags">
+          <span class="tag">L1–L3 Support</span>
+          <span class="tag">Incident Mgmt</span>
+          <span class="tag">SRE</span>
+          <span class="tag">Linux</span>
+        </div>
+      </div>
 
-							<div class="col-md-4">
-								<div class="item">
-									<span class="icon"><i class="fa fa-phone" aria-hidden="true"></i></span>
-									<h6>Phone</h6>
-									<p>+91 7894 057 057</p>
-								</div>
-							</div>
-							<div class="clearfix"></div>
-						</div>
+    </div>
+  </section>
 
-						<!-- contact form -->
-						<form class="form" id="contact-form" method="post" action="contact.php">
-		                    <div class="messages"></div>
+  <!-- IMPACT -->
+  <section id="impact">
+    <div class="impact-inner">
+      <div class="section-label">Proof of Work</div>
+      <div class="section-title">Results,<br>Not Promises</div>
+      <div class="impact-grid reveal">
 
-		                    <div class="controls">
+        <div class="impact-card">
+          <div class="impact-header">
+            <div class="impact-client">Volkswagen Group Ecosystem</div>
+            <div class="impact-year">2022 — Present</div>
+          </div>
+          <div class="impact-title">Enterprise DevOps Platform Transformation</div>
+          <div class="impact-desc">
+            Designed and operated CI/CD pipelines across multiple environments for enterprise-grade workloads. 
+            Managed 150+ Linux production servers with high SLA adherence. Migrated workloads across AWS, Azure, and GCP.
+            Containerized applications with Docker & Kubernetes, automated provisioning with Terraform.
+          </div>
+          <div class="impact-metrics">
+            <div class="metric">
+              <div class="metric-val">30%+</div>
+              <div class="metric-label">Faster Deploys</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">~40%</div>
+              <div class="metric-label">Faster Incidents</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">150+</div>
+              <div class="metric-label">Servers Managed</div>
+            </div>
+          </div>
+        </div>
 
-		                        <div class="row">
-		                            <div class="col-md-6">
-		                                <div class="form-group">
-		                                    <input id="form_name" type="text" name="name" placeholder="Name" required="required">
-		                                </div>
-		                            </div>
+        <div class="impact-card">
+          <div class="impact-header">
+            <div class="impact-client">Multi-Cloud Migration</div>
+            <div class="impact-year">Ongoing</div>
+          </div>
+          <div class="impact-title">Full-Stack Cloud & Infrastructure Automation</div>
+          <div class="impact-desc">
+            Led cross-cloud workload migrations covering AWS, Azure, and GCP. Implemented 100% 
+            Infrastructure as Code with Terraform, reducing provisioning time from days to minutes. 
+            Built observability stacks with ELK, Prometheus, and Grafana for proactive issue resolution.
+          </div>
+          <div class="impact-metrics">
+            <div class="metric">
+              <div class="metric-val">100%</div>
+              <div class="metric-label">IaC Coverage</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">3</div>
+              <div class="metric-label">Cloud Platforms</div>
+            </div>
+            <div class="metric">
+              <div class="metric-val">↓</div>
+              <div class="metric-label">Infra Costs</div>
+            </div>
+          </div>
+        </div>
 
-		                             <div class="col-md-6">
-		                                <div class="form-group">
-		                                    <input id="form_email" type="email" name="email" placeholder="Email" required="required">
-		                                </div>
-		                            </div>
-		                        </div>
-		                        <div class="row">
-		                            <div class="col-md-12">
-		                                <div class="form-group">
-		                                    <textarea id="form_message" name="message" placeholder="Message" rows="4" required="required"></textarea>
-		                                </div>
+      </div>
+    </div>
+  </section>
 
-		                                <input type="submit" value="Submit" class="buton buton-bg">
-		                            </div>
-		                        </div>
-		                    </div>
-		                </form>
+  <!-- STACK -->
+  <section id="stack">
+    <div class="section-label">Technology</div>
+    <div class="section-title">Full Stack<br>of Tools</div>
+    <div class="stack-groups reveal">
+      <div>
+        <div class="stack-group-label">Cloud</div>
+        <div class="stack-items">
+          <div class="stack-item"><span class="stack-dot"></span>Azure (VMs, AKS, Networking, Security)</div>
+          <div class="stack-item"><span class="stack-dot"></span>AWS (EC2, S3, IAM, VPC, EKS)</div>
+          <div class="stack-item"><span class="stack-dot"></span>GCP (GKE, Compute Engine)</div>
+        </div>
+      </div>
+      <div>
+        <div class="stack-group-label">CI/CD</div>
+        <div class="stack-items">
+          <div class="stack-item"><span class="stack-dot"></span>GitHub Actions</div>
+          <div class="stack-item"><span class="stack-dot"></span>Jenkins</div>
+          <div class="stack-item"><span class="stack-dot"></span>Azure DevOps</div>
+          <div class="stack-item"><span class="stack-dot"></span>Argo CD (GitOps)</div>
+        </div>
+      </div>
+      <div>
+        <div class="stack-group-label">Containers</div>
+        <div class="stack-items">
+          <div class="stack-item"><span class="stack-dot"></span>Docker</div>
+          <div class="stack-item"><span class="stack-dot"></span>Kubernetes (AKS, GKE, EKS)</div>
+          <div class="stack-item"><span class="stack-dot"></span>Helm</div>
+        </div>
+      </div>
+      <div>
+        <div class="stack-group-label">IaC</div>
+        <div class="stack-items">
+          <div class="stack-item"><span class="stack-dot"></span>Terraform</div>
+          <div class="stack-item"><span class="stack-dot"></span>ARM Templates</div>
+        </div>
+      </div>
+      <div>
+        <div class="stack-group-label">Observability</div>
+        <div class="stack-items">
+          <div class="stack-item"><span class="stack-dot"></span>Prometheus</div>
+          <div class="stack-item"><span class="stack-dot"></span>Grafana</div>
+          <div class="stack-item"><span class="stack-dot"></span>ELK Stack</div>
+          <div class="stack-item"><span class="stack-dot"></span>Azure Monitor</div>
+        </div>
+      </div>
+      <div>
+        <div class="stack-group-label">Scripting & DB</div>
+        <div class="stack-items">
+          <div class="stack-item"><span class="stack-dot"></span>Bash / Shell</div>
+          <div class="stack-item"><span class="stack-dot"></span>Python</div>
+          <div class="stack-item"><span class="stack-dot"></span>MySQL / PostgreSQL</div>
+          <div class="stack-item"><span class="stack-dot"></span>Oracle</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-					</div>
-				</div><!-- /row -->
-			</div><!-- /container -->
-		</section>
-		<!--====== End Contact ======-->
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-left reveal">
+        <div class="section-label">Get In Touch</div>
+        <div class="section-title">Let's Build<br>Something<br>Reliable</div>
+        <p class="contact-tagline">
+          Have a cloud migration, a broken pipeline, a Kubernetes cluster 
+          that needs taming, or infrastructure that needs to scale? 
+          Let's talk. I respond within 24 hours.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:arijitmahapatro@gmail.com" class="contact-link">
+            <span class="contact-link-icon">📧</span>
+            <div>
+              <div class="contact-link-label">Email</div>
+              <div class="contact-link-val">arijitmahapatro@gmail.com</div>
+            </div>
+          </a>
+          <a href="https://linkedin.com/in/arijit-mahapatro-5a095a17a" target="_blank" class="contact-link">
+            <span class="contact-link-icon">💼</span>
+            <div>
+              <div class="contact-link-label">LinkedIn</div>
+              <div class="contact-link-val">linkedin.com/in/arijit-mahapatro-5a095a17a</div>
+            </div>
+          </a>
+          <a href="https://github.com/arijitmahapatro" target="_blank" class="contact-link">
+            <span class="contact-link-icon">⚡</span>
+            <div>
+              <div class="contact-link-label">GitHub</div>
+              <div class="contact-link-val">github.com/arijitmahapatro</div>
+            </div>
+          </a>
+        </div>
+      </div>
 
-		<!--====== Footer ======-->
-		<footer>
-			<div class="container text-center">
-				<div class="row">
-					<p>Copy Right 2021 &copy; By thearijit016 All Rights Reserved</p>
-				</div>
-			</div>
-		</footer>
-		<!--====== End Footer ======-->
+      <div class="contact-form reveal">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" placeholder="john@company.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Needed</label>
+          <input class="form-input" type="text" placeholder="CI/CD Pipeline, Kubernetes Setup, Cloud Migration..." />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tell Me About Your Project</label>
+          <textarea class="form-textarea" placeholder="Describe your infrastructure, what's broken, or what you want to build..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleContact()">Send Message →</button>
+      </div>
+    </div>
+  </section>
 
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-copy">
+      © 2025 <span>Arijit Mahapatro</span> · Built on GitHub Pages · Bengaluru, India
+    </div>
+    <div class="footer-status">
+      <div class="status-dot"></div>
+      Available for work
+    </div>
+  </footer>
 
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animateCursor() {
+      cursor.style.left = mx - 6 + 'px';
+      cursor.style.top  = my - 6 + 'px';
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) *.12;
+      ring.style.left = rx - 18 + 'px';
+      ring.style.top  = ry - 18 + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
 
-       
-        <!-- jQuery -->
-		<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
-		<script src="https://code.jquery.com/jquery-migrate-3.0.0.min.js"></script>
+    document.querySelectorAll('a, button, .service-card').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.5)'; });
+      el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
+    });
 
-	  	<!-- bootstrap -->
-		<script src="js\bootstrap.min.js"></script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-		<!-- scrollIt -->
-		<script src="js\scrollIt.min.js"></script>
-
-		<!-- magnific-popup -->
-		<script src="js\jquery.magnific-popup.min.js"></script>
-
-		<!-- owl carousel -->
-		<script src="js\owl.carousel.min.js"></script>
-
-		<!-- stellar js -->
-		<script src="js\jquery.stellar.min.js"></script>
-
-		<!-- animated.headline -->
-		<script src="js\animated.headline.js"></script>
-
-      	<!-- jquery.waypoints.min js -->
-	  	<script src="js\jquery.waypoints.min.js"></script>
-
-	  	<!-- jquery.counterup.min js -->
-	  	<script src="js\jquery.counterup.min.js"></script>
-
-      	<!-- isotope.pkgd.min js -->
-      	<script src="js\isotope.pkgd.min.js"></script>
-
-      	<!-- particles.min js -->
-      	<script src="js\particles.min.js"></script>
-
-      	<!-- app js -->
-      	<script src="js\app.js"></script>
-
-      	<!-- validator js -->
-      	<script src="js\validator.js"></script>
-
-      	<!-- custom script -->
-        <script src="js\custom.js"></script>
-
-    </body>
+    // Contact form
+    function handleContact() {
+      const name = document.querySelectorAll('.form-input')[0].value;
+      const email = document.querySelectorAll('.form-input')[1].value;
+      const service = document.querySelectorAll('.form-input')[2].value;
+      const msg = document.querySelector('.form-textarea').value;
+      if (!name || !email || !msg) { alert('Please fill in at least your name, email, and message.'); return; }
+      const subject = encodeURIComponent(`Freelance Inquiry: ${service || 'DevOps Project'}`);
+      const body = encodeURIComponent(`Hi Arijit,\n\nName: ${name}\nEmail: ${email}\nService: ${service}\n\nProject Details:\n${msg}`);
+      window.location.href = `mailto:arijitmahapatro@gmail.com?subject=${subject}&body=${body}`;
+    }
+  </script>
+</body>
 </html>
